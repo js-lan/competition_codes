@@ -7,8 +7,6 @@
 
 import pandas as pd
 import catboost as cat
-from datetime import datetime
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV
 
 #load data
@@ -17,21 +15,15 @@ test  = pd.read_csv('../data/test.csv')
 subs  = pd.read_csv('../data/submit.csv')
 
 #build model
-folds = 5
-depth = 6
-
 #final parameters
-cat_grid = {'depth':[depth]
+cat_grid = {'depth':[6]
             , 'bootstrap_type':['Bernoulli']
             , 'od_type':['Iter']
             , 'l2_leaf_reg':[16]
             , 'learning_rate': [0.1]
-            , 'allow_writing_files':[False]
-            , 'silent':[True]
- 
            }
 #search and fit
-catgrid = GridSearchCV(cat.CatBoostClassifier(), param_grid=cat_grid, cv=folds, scoring='f1_macro', n_jobs=-1, verbose = 10)
+catgrid = GridSearchCV(cat.CatBoostClassifier(), param_grid=cat_grid, cv=5, scoring='f1_macro', n_jobs=-1, verbose = 10)
 catgrid.fit( train.drop(['label','id'], axis=1), train['label'] )
  
 #predict output prob
