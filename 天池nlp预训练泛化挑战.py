@@ -367,8 +367,8 @@ preds_col_names = encode_label.inverse_transform( range(0,n_cls) )
 preds_tst_df.columns = preds_col_names
 
 preds_tst_df.to_csv(path + test_prob_name, index=None)
-
 #以上代码为加载模型权重直接预测
+
 #times_testa, ocemo_testa, ocnli_testa
 #每行，从每个任务对应的标签列中找出最大的概率对应的列名作为预测结果
 #如ocnli任务的预测结果只能为0、1、2，那么从preds_tst_df中选择0-1-2三列中每行概率最大的列名作为ocnli任务的测试集预测结果
